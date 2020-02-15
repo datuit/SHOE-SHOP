@@ -75,7 +75,7 @@ const Header = ({ cart, user, actLogOut }) => {
                 <ul>
                   <li>
                     <Dropdown overlay={menu} trigger={['click']}>
-                      <span style={{ cursor: 'pointer' }}>
+                      <span style={{ cursor: 'pointer', fontSize: '16px' }}>
                         <Avatar icon="user" />{' '}
                         {!user.userId ? 'Chào khách' : `Chào, ${user.username}`}
                       </span>
@@ -84,7 +84,10 @@ const Header = ({ cart, user, actLogOut }) => {
                   <li>
                     <Badge count={cartlength}>
                       <Link to="/cart">
-                        <Icon type="shopping-cart" />
+                        <Icon
+                          type="shopping-cart"
+                          style={{ fontSize: '23px' }}
+                        />
                       </Link>
                     </Badge>
                   </li>

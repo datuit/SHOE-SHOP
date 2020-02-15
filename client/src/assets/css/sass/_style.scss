@@ -20,6 +20,11 @@ body {
   }
 }
 
+::-moz-selection {
+  background: #000;
+  color: #fff;
+}
+
 ::-moz-selection,
 ::selection {
   background: #000;
@@ -28,7 +33,6 @@ body {
 
 a {
   -webkit-transition: 0.3s all ease;
-  -o-transition: 0.3s all ease;
   transition: 0.3s all ease;
 
   &:hover {
@@ -40,7 +44,6 @@ a {
   text-transform: uppercase;
   position: relative;
   -webkit-transition: 0.2s all ease-in-out !important;
-  -o-transition: 0.2s all ease-in-out !important;
   transition: 0.2s all ease-in-out !important;
   top: 0;
   letter-spacing: 0.05em;
@@ -49,7 +52,6 @@ a {
   &:active,
   &:focus {
     outline: none;
-    -webkit-box-shadow: none !important;
     box-shadow: none !important;
   }
 
@@ -71,7 +73,6 @@ a {
   }
 
   &:hover {
-    -webkit-box-shadow: 0 5px 20px -7px rgba(0, 0, 0, 0.9) !important;
     box-shadow: 0 5px 20px -7px rgba(0, 0, 0, 0.9) !important;
     top: -2px;
   }
@@ -118,6 +119,7 @@ ul {
       svg {
         position: absolute;
         top: 50%;
+        -webkit-transform: translateY(-50%);
         transform: translateY(-50%);
       }
       input {
@@ -126,6 +128,7 @@ ul {
         border: none;
         border-radius: 5px;
         outline: none;
+        -webkit-transition: 0.3s all ease-in-out;
         transition: 0.3s all ease-in-out;
         color: #495057;
         &:focus {
@@ -262,6 +265,7 @@ main {
         position: absolute;
         top: 50%;
         left: 50%;
+        -webkit-transform: translate(-50%, -50%);
         transform: translate(-50%, -50%);
         display: none;
       }
