@@ -1,0 +1,325 @@
+@import '_mixin.scss';
+@import './Lib/_base.scss';
+@import '~react-image-gallery/styles/scss/image-gallery.scss';
+
+/* Base */
+* {
+  box-sizing: border-box;
+}
+body {
+  line-height: 1.7;
+  color: #8c92a0;
+  font-weight: 300;
+  font-size: 16px;
+  background-color: #fbfbfb;
+}
+
+@include respond-below(sm) {
+  body {
+    font-size: 10px;
+  }
+}
+
+::-moz-selection,
+::selection {
+  background: #000;
+  color: #fff;
+}
+
+a {
+  -webkit-transition: 0.3s all ease;
+  -o-transition: 0.3s all ease;
+  transition: 0.3s all ease;
+
+  &:hover {
+    text-decoration: none;
+  }
+}
+
+.btn {
+  text-transform: uppercase;
+  position: relative;
+  -webkit-transition: 0.2s all ease-in-out !important;
+  -o-transition: 0.2s all ease-in-out !important;
+  transition: 0.2s all ease-in-out !important;
+  top: 0;
+  letter-spacing: 0.05em;
+
+  &:hover,
+  &:active,
+  &:focus {
+    outline: none;
+    -webkit-box-shadow: none !important;
+    box-shadow: none !important;
+  }
+
+  &.btn-secondary {
+    background-color: #e6e7e9;
+    border-color: #e6e7e9;
+    color: #000;
+  }
+
+  &.btn-sm {
+    font-size: 14px !important;
+    padding: 10px 20px !important;
+  }
+
+  &.btn-primary {
+    font-size: 17px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+  }
+
+  &:hover {
+    -webkit-box-shadow: 0 5px 20px -7px rgba(0, 0, 0, 0.9) !important;
+    box-shadow: 0 5px 20px -7px rgba(0, 0, 0, 0.9) !important;
+    top: -2px;
+  }
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.container {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+  @media (min-width: 576px) {
+    max-width: 540px;
+  }
+
+  @media (min-width: 768px) {
+    max-width: 720px;
+  }
+
+  @media (min-width: 992px) {
+    max-width: 960px;
+  }
+
+  @media (min-width: 1200px) {
+    max-width: 1140px;
+  }
+}
+
+//1.header
+///////////////////////////////
+.header {
+  .navbar {
+    padding: 30px 0;
+    border-bottom: 1px solid #f3f3f4;
+    .site-top-search {
+      position: relative;
+      font-size: 18px;
+      svg {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      input {
+        width: 100%;
+        padding-left: 40px;
+        border: none;
+        border-radius: 5px;
+        outline: none;
+        transition: 0.3s all ease-in-out;
+        color: #495057;
+        &:focus {
+          padding-left: 20px;
+        }
+      }
+    }
+    .logo {
+      text-align: center !important;
+      a {
+        display: inline-block;
+        font-size: 20px;
+        padding: 0 10px;
+        font-weight: 400;
+        text-transform: uppercase;
+        color: #25262a;
+        border: 2px solid #25262a;
+        letter-spacing: 0.2em;
+      }
+      @include respond-below(sm) {
+        margin-bottom: 20px;
+      }
+    }
+    .site-top-icons {
+      text-align: right !important;
+      ul {
+        height: initial;
+        li {
+          display: inline;
+          a {
+            font-size: 20px;
+            margin: 0 5px;
+            color: #868995;
+          }
+        }
+      }
+    }
+  }
+  .bread-crumb {
+    line-height: 50px;
+    font-size: 20px;
+    height: 50px;
+  }
+}
+///////////////////////////////
+.menu-bar {
+  border-bottom: 1px solid #f3f3f4;
+}
+//2 main
+//2.1 main-home
+main {
+  width: 100vw;
+  border-bottom: 1px solid #f3f3f4;
+  .background-banner {
+    width: 100vw;
+    height: 40vw;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  .element-info-service {
+    background-color: #ffffff;
+    padding: 20px;
+    text-align: center;
+    font-size: 18px;
+    @include depth(6);
+    img {
+      width: 20%;
+      margin-bottom: 20px;
+    }
+    p.title {
+      font-weight: bold;
+      text-transform: uppercase;
+    }
+  }
+  .item-hot-home {
+    &-list {
+      .item {
+        text-align: center;
+        padding: 0px 15px;
+        margin-bottom: 35px;
+        .shopswatchinput {
+          margin: 20px 0;
+          img {
+            margin: 0 5px;
+            .active {
+              border: black 1px solid;
+            }
+            &:hover {
+              border: black 1px solid;
+            }
+          }
+        }
+        h3.card-title {
+          font-size: 14px;
+          font-weight: bold;
+        }
+        span.price {
+          font-size: 13px;
+          .price-amount {
+            font-weight: bold;
+            color: black;
+          }
+          del {
+            font-size: 12px;
+          }
+        }
+      }
+    }
+  }
+}
+main {
+  .item-hot-home .item-hot-home-list .item,
+  .shop .product-list .item {
+    text-align: center;
+    padding: 0px 15px;
+    margin-bottom: 35px;
+    .card-main-image {
+      position: relative;
+      span {
+        position: absolute;
+        top: 30;
+        left: 0;
+        background: black;
+        color: white;
+        font-size: 12px;
+        padding: 0 3px;
+        border-radius: 10%;
+      }
+      .action-open-item {
+        i {
+          font-size: 100px;
+          color: black;
+        }
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+      }
+      &:hover {
+        opacity: 0.5;
+        .action-open-item {
+          display: block;
+        }
+      }
+    }
+    .shopswatchinput {
+      margin: 20px 0;
+      img {
+        margin: 0 5px;
+        .active {
+          border: black 1px solid;
+        }
+        &:hover {
+          border: black 1px solid;
+        }
+      }
+    }
+    h3.card-title {
+      font-size: 14px;
+      font-weight: bold;
+    }
+    span.price {
+      font-size: 13px;
+      .price-amount {
+        font-weight: bold;
+        color: black;
+      }
+      del {
+        font-size: 12px;
+      }
+    }
+  }
+}
+//2.1 main-shop
+main {
+  .shop {
+    padding: 40px 0;
+    font-size: 16px;
+    .filter-product {
+      border: 1px solid #dee2e6;
+      padding: 20px;
+    }
+  }
+}
+
+//3.footer
+.footer {
+  font-size: 1.3em;
+  &-main {
+    padding: 20px 0;
+  }
+  .copyright {
+    text-align: center;
+    border-top: 1px solid #f3f3f4;
+  }
+}
