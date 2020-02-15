@@ -127,8 +127,7 @@ export default class ShopPage extends Component {
                       <Icon
                         type="close"
                         style={{ fontSize: 40, color: 'blue' }}
-                      />{' '}
-                      Hết
+                      />
                     </div>
                   }
                 >
