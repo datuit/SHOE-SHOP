@@ -1,5 +1,5 @@
 import React from 'react'
-import ItemProduct from '../ItemProduct'
+import Item from './Item'
 import { List } from 'antd'
 
 const index = ({ items }) => {
@@ -13,7 +13,7 @@ const index = ({ items }) => {
       dataSource={items}
       renderItem={item => (
         <List.Item className="item">
-          <ItemProduct item={item} />
+          <Item item={item} />
         </List.Item>
       )}
     />

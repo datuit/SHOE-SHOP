@@ -1,6 +1,6 @@
 import React from 'react'
-import Header from './Header'
-import Footer from './Footer'
+import Header from './Layout/Header'
+import Footer from './Layout/Footer'
 import { Switch } from 'react-router-dom'
 import Routes from '../routes'
 import { RouteWithSubRoutes } from '../utils'

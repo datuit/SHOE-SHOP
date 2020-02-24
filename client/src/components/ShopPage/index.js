@@ -1,106 +1,88 @@
-import React, { Component } from 'react'
-import { Icon, Row, Col, Spin } from 'antd'
-import InfiniteScroll from 'react-infinite-scroll-component'
-import AOS from 'aos'
-import FilterProduct from '../FilterProduct'
-import SortProduct from '../SortProduct'
-import Product from '../Product'
+import React, {
+  Component,
+  useReducer,
+  useEffect,
+  useState,
+  useRef
+} from 'react';
+import { Icon, Row, Col, Spin, Dropdown, Menu, Button } from 'antd';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import AOS from 'aos';
+import FilterProduct from './FilterProduct';
+import Product from '../Product';
 
-const perPage = 8
+const perPage = 8;
 
-export default class ShopPage extends Component {
-  constructor(props) {
-    super(props)
-    this.state = {
-      itemshow: [],
-      hasMore: true,
-      page: 1,
-      itemShowPage: (page, items, itemshow) => {
-        const start = (page - 1) * perPage
-        const end = (page - 1) * perPage + perPage
-        return itemshow.concat(items.slice(start, end))
-      },
-      noItems: false
+const ShopPage = props => {
+  const { category, sortItems, filterItems, noItems, items } = props;
+  const [itemShow, setItemShow] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
+  const page = useRef(1);
+  useEffect(() => {
+    if (items.length > 0) {
+      setItemShow(items.slice(0, perPage));
     }
-  }
+  }, [items]);
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    if (nextProps.items.length > 0 && !prevState.noItems) {
-      return {
-        ...prevState,
-        itemshow: prevState.itemShowPage(
-          prevState.page,
-          nextProps.items,
-          prevState.itemshow
-        )
-      }
-    } else return null
-  }
-
-  filterProduct = price => {
-    const { items } = this.props
-    if (price) {
-      var itemFilter = items.filter(
-        item => item.promotion >= price[0] && price[1] >= item.promotion
-      )
-      if (itemFilter.length === 0) {
-        this.setState({
-          itemshow: [],
-          noItems: true
-        })
-      } else {
-        this.setState({
-          itemshow: itemFilter,
-          noItems: false
-        })
-      }
-    }
-  }
-
-  fetchMoreData = () => {
-    const { items } = this.props
-    const { itemshow } = this.state
-    if (itemshow.length >= items.length) {
-      this.setState(() => ({
-        hasMore: false
-      }))
-      return
+  //Load more itemShow
+  const fetchMoreData = () => {
+    if (itemShow.length >= items.length) {
+      setHasMore(false);
+      return;
     }
     setTimeout(() => {
-      this.setState(() => ({
-        page: this.state.page + 1
-      }))
-    }, 1000)
-  }
-
-  render() {
-    AOS.init()
-    const { hasMore, itemshow, noItems } = this.state
-    const { filterCategory } = this.props
-    return (
-      <div className="shop">
-        <div className="container">
-          <Row>
-            <Col xs={24} md={5} className="mb-3">
-              <div data-aos="fade-up">
-                <FilterProduct filterProduct={this.filterProduct} />
-              </div>
-            </Col>
-            <Col xs={24} md={19} className="pr-md-4 pl-md-4 mb-5">
-              <Row>
-                <Col className="text-uppercase font-weight-bold " span={12}>
-                  <div data-aos="zoom-in">{filterCategory}</div>
-                </Col>
-                <Col span={12} className="text-right">
-                  <div data-aos="zoom-in">
-                    <SortProduct />
-                  </div>
-                </Col>
-              </Row>
-              <div className="product-list mt-3">
+      page.current++;
+      setItemShow(
+        itemShow.concat(
+          items.slice(
+            (page.current - 1) * perPage,
+            (page.current - 1) * perPage + perPage
+          )
+        )
+      );
+    }, 1000);
+  };
+  AOS.init();
+  return (
+    <div className="shop">
+      <div className="container">
+        <Row>
+          <Col xs={24} md={5} className="mb-3">
+            <div data-aos="fade-up">
+              <FilterProduct filterItems={filterItems} />
+            </div>
+          </Col>
+          <Col xs={24} md={19} className="pr-md-4 pl-md-4 mb-5">
+            <Row>
+              <Col className="text-uppercase font-weight-bold " span={12}>
+                <div data-aos="zoom-in">{category}</div>
+              </Col>
+              <Col span={12} className="text-right">
+                <div data-aos="zoom-in">
+                  <Dropdown
+                    overlay={
+                      <Menu>
+                        <Menu.Item key="0" onClick={() => sortItems(true)}>
+                          Giá thấp đến cao
+                        </Menu.Item>
+                        <Menu.Item key="1" onClick={() => sortItems(false)}>
+                          Giá cao đến thấp
+                        </Menu.Item>
+                      </Menu>
+                    }
+                  >
+                    <Button className="font-weight-bold">
+                      SẮP XẾP <Icon type="down" />
+                    </Button>
+                  </Dropdown>
+                </div>
+              </Col>
+            </Row>
+            <div className="product-list mt-3">
+              {itemShow.length > 0 && !noItems ? (
                 <InfiniteScroll
-                  dataLength={itemshow.length}
-                  next={this.fetchMoreData}
+                  dataLength={itemShow.length}
+                  next={fetchMoreData}
                   hasMore={hasMore}
                   loader={
                     <div
@@ -118,30 +100,18 @@ export default class ShopPage extends Component {
                       />
                     </div>
                   }
-                  endMessage={
-                    <div
-                      style={{
-                        textAlign: 'center'
-                      }}
-                    >
-                      <Icon
-                        type="close"
-                        style={{ fontSize: 40, color: 'blue' }}
-                      />
-                    </div>
-                  }
                 >
-                  {itemshow.length > 0 && !noItems ? (
-                    <Product items={itemshow} />
-                  ) : (
-                    ''
-                  )}
+                  <Product items={itemShow} />
                 </InfiniteScroll>
-              </div>
-            </Col>
-          </Row>
-        </div>
+              ) : (
+                ''
+              )}
+            </div>
+          </Col>
+        </Row>
       </div>
-    )
-  }
-}
+    </div>
+  );
+};
+
+export default ShopPage;

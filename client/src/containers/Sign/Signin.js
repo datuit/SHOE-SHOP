@@ -1,35 +1,35 @@
-import React from 'react'
-import { Form, Icon, Input, Button } from 'antd'
+import React from 'react';
+import { Form, Icon, Input, Button } from 'antd';
 
 class NormalLoginForm extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
       errorSignIn: ''
-    }
+    };
   }
 
   static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.error.signin) {
       if (nextProps.error.signin !== prevState.errorSignIn) {
-        return { errorSignIn: nextProps.error.signin }
+        return { errorSignIn: nextProps.error.signin };
       }
     }
-    return null
+    return null;
   }
 
   handleSubmit = e => {
-    e.preventDefault()
+    e.preventDefault();
     this.props.form.validateFields((err, values) => {
       if (!err) {
-        this.props.actSignIn(values)
+        this.props.actSignIn(values);
       }
-    })
-  }
+    });
+  };
 
   render() {
-    const { getFieldDecorator } = this.props.form
-    const { errorSignIn } = this.state
+    const { getFieldDecorator } = this.props.form;
+    const { errorSignIn } = this.state;
     return (
       <Form onSubmit={this.handleSubmit} className="login-form text-center">
         <h1>Đăng nhập</h1>
@@ -55,9 +55,8 @@ class NormalLoginForm extends React.Component {
               { required: true, message: 'Vui lòng nhập Mật khẩu của bạn!' }
             ]
           })(
-            <Input
+            <Input.Password
               prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              type="password"
               placeholder="Mật khẩu"
             />
           )}
@@ -72,8 +71,8 @@ class NormalLoginForm extends React.Component {
           </Button>
         </Form.Item>
       </Form>
-    )
+    );
   }
 }
 
-export default Form.create({ name: 'normal_login' })(NormalLoginForm)
+export default Form.create({ name: 'normal_login' })(NormalLoginForm);

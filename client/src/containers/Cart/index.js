@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   Table,
   Avatar,
@@ -8,13 +8,15 @@ import {
   Col,
   Popconfirm,
   message
-} from 'antd'
-import { connect } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import AOS from 'aos'
-import { actDEL_CART, actBUY_CART } from '../../redux/Cart'
+} from 'antd';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import AOS from 'aos';
+import { actDEL_CART, actBUY_CART } from '../../redux/Cart';
+import { actAddAddress } from '../../redux/Session';
+import Address from '../../components/Address';
 
-const columns = onDel => {
+const columns = isDelItem => {
   return [
     {
       title: 'Image',
@@ -61,52 +63,60 @@ const columns = onDel => {
           icon="close"
           type="primary"
           size="large"
-          onClick={() => onDel(record)}
+          onClick={() => isDelItem(record)}
         />
       )
     }
-  ]
-}
+  ];
+};
 
 const Cart = props => {
-  AOS.init()
-  const { cart, actDEL_CART, actBUY_CART, userId } = props
-  let history = useHistory()
-  const onDel = item => {
-    actDEL_CART(item)
-  }
+  AOS.init();
+  const {
+    cart,
+    actDEL_CART,
+    actBUY_CART,
+    userId,
+    addressUser,
+    actAddAddress
+  } = props;
+  let history = useHistory();
+  const isDelItem = item => {
+    actDEL_CART(item);
+  };
 
   const showCart = () => {
-    var a = cart.slice()
+    var a = cart.slice();
     a = a.map((e, i) => {
-      e.key = i
-      return e
-    })
-    return a
-  }
+      e.key = i;
+      return e;
+    });
+    return a;
+  };
 
   const Total = () => {
-    let total = 0
-    cart.forEach(item => (total += item.price * item.quantity))
-    return total
-  }
+    let total = 0;
+    cart.forEach(item => (total += item.price * item.quantity));
+    return total;
+  };
 
   const confirm = async () => {
     if (cart.length > 0) {
       if (!userId) {
         return message.warning(
           'Vui lòng đăng nhập trước khi thực hiện thanh toán!'
-        )
+        );
+      } else if (addressUser.length === 0) {
+        return message.warning('Chưa có địa chỉ nhận hàng!');
       } else {
-        var status
-        await actBUY_CART(userId, cart).then(e => (status = e))
+        var status;
+        await actBUY_CART(userId, cart).then(e => (status = e));
         if (status) {
-          history.push('/cart/succes-buy')
+          history.push('/cart/succes-buy');
         }
       }
     }
-  }
-
+  };
   return (
     <div data-aos="flip-left">
       <div className="container mt-5 mb-5">
@@ -114,15 +124,21 @@ const Cart = props => {
           <>
             <Table
               bordered
-              columns={columns(onDel)}
+              columns={columns(isDelItem)}
               dataSource={showCart()}
               pagination={false}
             />
             <Row className="mt-4">
-              <Col xs={24} sm={{ span: 8, offset: 16 }}>
+              <Col xs={24} sm={{ span: 16 }}>
+                <Address
+                  addressUser={addressUser}
+                  actAddAddress={actAddAddress}
+                />
+              </Col>
+              <Col xs={24} sm={{ span: 8 }}>
                 <Row>
                   <h4
-                    className="text-uppercase text-right"
+                    className="text-uppercase text-sm-right"
                     style={{
                       fontSize: '25px',
                       borderBottom: '1px #e8e8e8 solid'
@@ -177,12 +193,17 @@ const Cart = props => {
         )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 const mapStateToProps = state => ({
   cart: state.cart,
-  userId: state.session.userId
-})
+  userId: state.session.userId,
+  addressUser: state.session.address
+});
 
-export default connect(mapStateToProps, { actDEL_CART, actBUY_CART })(Cart)
+export default connect(mapStateToProps, {
+  actDEL_CART,
+  actBUY_CART,
+  actAddAddress
+})(Cart);
