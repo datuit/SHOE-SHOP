@@ -15,8 +15,9 @@ npm install
 
 /* Then start both Node and React */
 
+ - go to the server directory
 /* To run the start */
-npm start
+npm run dev
 
 
 ```
