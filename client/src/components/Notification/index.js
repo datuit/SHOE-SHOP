@@ -1,10 +1,10 @@
 import { notification } from 'antd';
 
-const index = (type, message, description) => {
+const index = (type, message, description, duration = 1) => {
   return notification[type]({
-    message: message,
-    description: description,
-    duration: 1
+    message,
+    description,
+    duration
   });
 };
 

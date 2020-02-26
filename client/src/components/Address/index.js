@@ -1,15 +1,5 @@
 import React, { useState } from 'react';
-import {
-  Button,
-  Row,
-  Col,
-  Checkbox,
-  Input,
-  message,
-  Icon,
-  Card,
-  Radio
-} from 'antd';
+import { Button, Row, Col, Input, message, Icon, Radio } from 'antd';
 import classnames from 'classnames';
 
 const Address = ({ addressUser, actAddAddress }) => {

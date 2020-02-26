@@ -3,12 +3,13 @@ import Shop from '../containers/Shop';
 import Home from '../containers/Home';
 import Cart from '../containers/Cart';
 import SuccesBuyCart from '../containers/SuccessBuy';
+import Order from '../containers/Order';
 
 const routes = [
   {
     path: '/',
     exact: true,
-    main: () => <Home />
+    main: Home
   },
   {
     path: '/shoes-man',
@@ -28,12 +29,19 @@ const routes = [
   {
     path: '/cart',
     exact: true,
-    main: props => <Cart {...props} />
+    main: Cart
   },
   {
     path: '/cart/succes-buy',
+    protected: true,
     exact: false,
-    main: () => <SuccesBuyCart />
+    main: SuccesBuyCart
+  },
+  {
+    path: '/order',
+    protected: true,
+    exact: true,
+    main: Order
   }
 ];
 

@@ -1,10 +1,4 @@
-import React, {
-  Component,
-  useReducer,
-  useEffect,
-  useState,
-  useRef
-} from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { Icon, Row, Col, Spin, Dropdown, Menu, Button } from 'antd';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import AOS from 'aos';

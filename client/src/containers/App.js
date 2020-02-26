@@ -1,9 +1,9 @@
-import React from 'react'
-import Header from './Layout/Header'
-import Footer from './Layout/Footer'
-import { Switch } from 'react-router-dom'
-import Routes from '../routes'
-import { RouteWithSubRoutes } from '../utils'
+import React from 'react';
+import Header from './Layout/Header';
+import Footer from './Layout/Footer';
+import { Switch } from 'react-router-dom';
+import Routes from '../routes';
+import { RouteWithSubRoutes, ProtectedRouter } from '../utils';
 
 const MainApp = () => {
   return (
@@ -11,14 +11,18 @@ const MainApp = () => {
       <Header />
       <main>
         <Switch>
-          {Routes.map((route, i) => (
-            <RouteWithSubRoutes key={i} {...route} />
-          ))}
+          {Routes.map((route, i) => {
+            if (route.protected) {
+              return <ProtectedRouter key={i} {...route} />;
+            } else {
+              return <RouteWithSubRoutes key={i} {...route} />;
+            }
+          })}
         </Switch>
       </main>
       <Footer />
     </>
-  )
-}
+  );
+};
 
-export default MainApp
+export default MainApp;

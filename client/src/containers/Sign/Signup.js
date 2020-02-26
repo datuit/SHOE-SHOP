@@ -27,7 +27,8 @@ class NormalLoginForm extends React.Component {
         } else {
           this.props.actSignUp({
             username: values.username,
-            password: values.password
+            password: values.password,
+            fullname: values.fullname
           });
         }
       }
@@ -42,6 +43,23 @@ class NormalLoginForm extends React.Component {
         <h1>Đăng Kí</h1>
         <p>{errorSignUp ? errorSignUp : ''}</p>
         <Form.Item>
+          {getFieldDecorator('fullname', {
+            rules: [
+              {
+                required: true,
+                message: 'Vui lòng nhập tên của bạn!'
+              }
+            ]
+          })(
+            <Input
+              prefix={
+                <Icon type="solution" style={{ color: 'rgba(0,0,0,.25)' }} />
+              }
+              placeholder="Tên đầy đủ"
+            />
+          )}
+        </Form.Item>
+        <Form.Item>
           {getFieldDecorator('username', {
             rules: [
               {
@@ -52,7 +70,7 @@ class NormalLoginForm extends React.Component {
           })(
             <Input
               prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder="Tài khoản (3-20 kí tự)"
+              placeholder="Tên đăng nhập"
             />
           )}
         </Form.Item>

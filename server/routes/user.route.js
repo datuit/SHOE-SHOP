@@ -37,31 +37,6 @@ userRouter.post("/address", async (req, res) => {
   }
 });
 
-userRouter.post("/buycart", async (req, res) => {
-  try {
-    const { userId, cart } = req.body;
-    if (req.session.user.userId) {
-      var user = await User.findById(userId, "bought");
-      if (user) {
-        var today = new Date();
-        var date =
-          today.getDate() +
-          "/" +
-          (today.getMonth() + 1) +
-          "/" +
-          today.getFullYear();
-        await user.bought.push({ [date]: cart });
-        await user.save();
-        res.send("ok");
-      }
-    } else {
-      res.redirect("/");
-    }
-  } catch (err) {
-    res.send(parseError(err));
-  }
-});
-
 userRouter.post("/signin", async (req, res) => {
   try {
     const { username, password } = req.body;
@@ -83,9 +58,9 @@ userRouter.post("/signin", async (req, res) => {
 
 userRouter.post("/signup", async (req, res) => {
   try {
-    const { username, password } = req.body;
+    const { username, password, fullname } = req.body;
     await Joi.validate({ username, password }, sign);
-    const newUser = new User({ username, password });
+    const newUser = new User({ username, password, fullname });
     await newUser.save();
     const sessionUser = await sessionizeUser(newUser);
     req.session.user = sessionUser;

@@ -1,6 +1,5 @@
 const express = require("express");
 const Router = express.Router();
-const Product = require("../model/Product");
 
 Router.get("/", (req, res) => {
   res.send("a");
@@ -15,5 +14,17 @@ Router.post("/item", (req, res) => {
     }
   });
 });
+const Product = require("../model/Product");
+const Data = require("../data/Product.data");
+Router.get("/allitem", (req, res) => {
+  Product.insertMany(Data);
+});
+
+const userRouter = require("./user.route");
+const sessionRouter = require("./session.route");
+const orderRouteer = require("./order.route");
+Router.use("/user", userRouter);
+Router.use("/session", sessionRouter);
+Router.use("/order", orderRouteer);
 
 module.exports = Router;

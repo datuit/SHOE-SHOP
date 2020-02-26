@@ -7,5 +7,6 @@ module.exports.sessionizeUser = user => ({
   userId: user.id,
   username: user.username,
   cart: user.cart,
-  address: user.address
+  address: user.address,
+  fullname: user.fullname || ""
 });

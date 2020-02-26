@@ -1,14 +1,16 @@
-import React, { useState, useMemo } from 'react'
-import { Affix, Menu, Row, Col, Badge, Icon, Modal } from 'antd'
-import { Dropdown, Avatar } from 'antd'
-import { Link } from 'react-router-dom'
-import { connect } from 'react-redux'
-import Sign from '../../Sign'
-import { actLogOut } from '../../../redux/Session'
+import React, { useState, useMemo } from 'react';
+import { Affix, Menu, Row, Col, Badge, Icon, Modal } from 'antd';
+import { Dropdown, Avatar } from 'antd';
+import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import Sign from '../../Sign';
+import { actLogOut } from '../../../redux/Session';
+import { isInFullScreen } from '../../../utils/screen';
 
 const Header = ({ cart, user, actLogOut }) => {
-  const [signTogle, setSignTogle] = useState(false)
-  const cartlength = useMemo(() => cart.length, [cart.length])
+  const [signTogle, setSignTogle] = useState(false);
+  const [screenTogle, setScreenTogle] = useState(false);
+  const cartlength = useMemo(() => cart.length, [cart.length]);
 
   const ElemModalSign = !user.userId ? (
     <Modal
@@ -21,27 +23,59 @@ const Header = ({ cart, user, actLogOut }) => {
     </Modal>
   ) : (
     ''
-  )
+  );
 
-  const menu = (
+  const togleScreenClick = () => {
+    const screenStt = isInFullScreen();
+    var docElm = document.documentElement;
+    if (!screenStt) {
+      if (docElm.requestFullscreen) {
+        docElm.requestFullscreen();
+      } else if (docElm.mozRequestFullScreen) {
+        docElm.mozRequestFullScreen();
+      } else if (docElm.webkitRequestFullScreen) {
+        docElm.webkitRequestFullScreen();
+      } else if (docElm.msRequestFullscreen) {
+        docElm.msRequestFullscreen();
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+    }
+    setScreenTogle(!screenStt);
+  };
+
+  const menu = !user.userId ? (
     <Menu>
-      {!user.userId ? (
-        <Menu.Item key="1" onClick={() => setSignTogle(true)}>
-          Đăng Nhập <Icon type="login" />
-        </Menu.Item>
-      ) : (
-        <Menu.Item
-          key="1"
-          onClick={() => {
-            actLogOut()
-            setSignTogle(false)
-          }}
-        >
-          Đăng Xuất <Icon type="logout" />
-        </Menu.Item>
-      )}
+      <Menu.Item key="1" onClick={() => setSignTogle(true)}>
+        Đăng Nhập <Icon type="login" />
+      </Menu.Item>
     </Menu>
-  )
+  ) : (
+    <Menu>
+      <Menu.Item key="1">
+        <Link to="/order">
+          Đơn hàng <Icon type="shopping-cart" />
+        </Link>
+      </Menu.Item>
+      <Menu.Item
+        key="2"
+        onClick={() => {
+          actLogOut();
+          setSignTogle(false);
+        }}
+      >
+        Đăng Xuất <Icon type="logout" />
+      </Menu.Item>
+    </Menu>
+  );
   return (
     <div className="header">
       <div className="navbar">
@@ -52,7 +86,7 @@ const Header = ({ cart, user, actLogOut }) => {
               sm={{ span: 12, order: 2 }}
               md={{ span: 8, order: 2 }}
             >
-              <form action="" className="site-top-search">
+              <form action="" className="site-top-search border">
                 <Icon type="search" />
                 <input type="text" placeholder="Search" />
               </form>
@@ -73,21 +107,28 @@ const Header = ({ cart, user, actLogOut }) => {
             >
               <div className="site-top-icons">
                 <ul>
+                  <li
+                    className="d-none d-md-inline-block mr-1"
+                    onClick={togleScreenClick}
+                  >
+                    {screenTogle ? (
+                      <Icon type="fullscreen-exit" />
+                    ) : (
+                      <Icon type="fullscreen" />
+                    )}
+                  </li>
                   <li>
                     <Dropdown overlay={menu} trigger={['click']}>
-                      <span style={{ cursor: 'pointer', fontSize: '16px' }}>
-                        <Avatar icon="user" />{' '}
-                        {!user.userId ? 'Chào khách' : `Chào, ${user.username}`}
+                      <span>
+                        <Avatar icon="user" />
+                        {!user.userId ? 'Chào khách' : user.fullname}
                       </span>
                     </Dropdown>
                   </li>
                   <li>
                     <Badge count={cartlength}>
                       <Link to="/cart">
-                        <Icon
-                          type="shopping-cart"
-                          style={{ fontSize: '23px' }}
-                        />
+                        <Icon type="shopping" />
                       </Link>
                     </Badge>
                   </li>
@@ -125,12 +166,12 @@ const Header = ({ cart, user, actLogOut }) => {
       </Affix>
       {signTogle ? ElemModalSign : ''}
     </div>
-  )
-}
+  );
+};
 
 const mapStateToProps = state => ({
   cart: state.cart,
   user: state.session
-})
+});
 
-export default connect(mapStateToProps, { actLogOut })(Header)
+export default connect(mapStateToProps, { actLogOut })(Header);

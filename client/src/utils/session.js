@@ -9,11 +9,11 @@ export const AddAddress = async address => {
   return response;
 };
 
-export const buyCart = async (userId, cart) => {
+export const buyCart = async cart => {
   const response = await axios({
-    url: 'api/user/buycart',
+    url: 'api/order/buycart',
     method: 'POST',
-    data: { userId, cart }
+    data: { cart }
   });
   return response;
 };

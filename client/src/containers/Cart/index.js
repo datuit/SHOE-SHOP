@@ -1,20 +1,12 @@
 import React from 'react';
-import {
-  Table,
-  Avatar,
-  Empty,
-  Button,
-  Row,
-  Col,
-  Popconfirm,
-  message
-} from 'antd';
+import { Table, Avatar, Empty, Button, Row, Col, Popconfirm } from 'antd';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import AOS from 'aos';
 import { actDEL_CART, actBUY_CART } from '../../redux/Cart';
 import { actAddAddress } from '../../redux/Session';
 import Address from '../../components/Address';
+import Notification from '../../components/Notification';
 
 const columns = isDelItem => {
   return [
@@ -76,7 +68,7 @@ const Cart = props => {
     cart,
     actDEL_CART,
     actBUY_CART,
-    userId,
+    isLogin,
     addressUser,
     actAddAddress
   } = props;
@@ -102,15 +94,23 @@ const Cart = props => {
 
   const confirm = async () => {
     if (cart.length > 0) {
-      if (!userId) {
-        return message.warning(
-          'Vui lòng đăng nhập trước khi thực hiện thanh toán!'
+      if (!isLogin) {
+        return Notification(
+          'warning',
+          'Đăng nhập',
+          'Vui lòng đăng nhập trước khi thực hiện thanh toán!',
+          2
         );
       } else if (addressUser.length === 0) {
-        return message.warning('Chưa có địa chỉ nhận hàng!');
+        return Notification(
+          'warning',
+          'Địa chỉ',
+          'Chưa có địa chỉ nhận hàng!',
+          2
+        );
       } else {
         var status;
-        await actBUY_CART(userId, cart).then(e => (status = e));
+        await actBUY_CART(cart).then(e => (status = e));
         if (status) {
           history.push('/cart/succes-buy');
         }
@@ -119,7 +119,7 @@ const Cart = props => {
   };
   return (
     <div data-aos="flip-left">
-      <div className="container mt-5 mb-5">
+      <div className="container mt-5 mb-5" style={{ minHeight: '250px' }}>
         {cart.length > 0 ? (
           <>
             <Table
@@ -186,7 +186,7 @@ const Cart = props => {
           <Empty
             image="https://gw.alipayobjects.com/mdn/miniapp_social/afts/img/A*pevERLJC9v0AAAAAAAAAAABjAQAAAQ/original"
             imageStyle={{
-              height: 60
+              height: 100
             }}
             description={<span>Giỏ hàng trống</span>}
           ></Empty>
@@ -198,7 +198,6 @@ const Cart = props => {
 
 const mapStateToProps = state => ({
   cart: state.cart,
-  userId: state.session.userId,
   addressUser: state.session.address
 });
 

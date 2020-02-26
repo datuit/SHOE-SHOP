@@ -1,12 +1,45 @@
-import React from 'react'
-import { Route } from 'react-router-dom'
+import React from 'react';
+import { Route, withRouter, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-export const RouteWithSubRoutes = route => {
+const mapStateToProps = ({ session: { userId } }) => ({
+  isLogin: Boolean(userId)
+});
+
+// const languages = {
+//   vi: {
+//     a: 0
+//   },
+//   en: {
+//     a: 0
+//   }
+// };
+
+// const
+
+const Protected = route => {
   return (
     <Route
       exact={route.exact}
       path={route.path}
-      render={props => <route.main {...props} route={route} />}
+      component={() =>
+        route.isLogin ? <route.main {...route} /> : <Redirect to="/" />
+      }
     />
-  )
-}
+  );
+};
+
+const RouteWithSubRoute = route => {
+  return (
+    <Route
+      exact={route.exact}
+      path={route.path}
+      component={() => <route.main {...route} />}
+    />
+  );
+};
+
+export const RouteWithSubRoutes = withRouter(
+  connect(mapStateToProps)(RouteWithSubRoute)
+);
+export const ProtectedRouter = withRouter(connect(mapStateToProps)(Protected));
