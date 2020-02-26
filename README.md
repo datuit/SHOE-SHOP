@@ -1,6 +1,6 @@
 # SHOE-SHOP
 ## 🛍️ ecommerce cart application with MERN 
-## Basic Overview - [Live Demo](https://weatd.herokuapp.com/)
+## Basic Overview - [Live Demo](https://shoeshop.ml/)
 ## Build/Run
 
 #### Requirements
