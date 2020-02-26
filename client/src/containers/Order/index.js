@@ -9,7 +9,7 @@ const Order = props => {
       className="container text-uppercase font-weight-bold"
       style={{ minHeight: '200px' }}
     >
-      <Tabs defaultActiveKey="2">
+      <Tabs defaultActiveKey="1">
         <TabPane
           tab={
             <span>

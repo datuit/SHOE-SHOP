@@ -7,6 +7,16 @@ import Sign from '../../Sign';
 import { actLogOut } from '../../../redux/Session';
 import { isInFullScreen } from '../../../utils/screen';
 
+//Funtion-Component Search
+const Search = () => {
+  return (
+    <form action="" className="site-top-search border">
+      <Icon type="search" />
+      <input type="text" placeholder="Search" />
+    </form>
+  );
+};
+
 const Header = ({ cart, user, actLogOut }) => {
   const [signTogle, setSignTogle] = useState(false);
   const [screenTogle, setScreenTogle] = useState(false);
@@ -86,10 +96,7 @@ const Header = ({ cart, user, actLogOut }) => {
               sm={{ span: 12, order: 2 }}
               md={{ span: 8, order: 2 }}
             >
-              <form action="" className="site-top-search border">
-                <Icon type="search" />
-                <input type="text" placeholder="Search" />
-              </form>
+              <Search />
             </Col>
             <Col
               xs={{ span: 24, order: 1 }}
