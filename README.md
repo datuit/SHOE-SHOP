@@ -1,5 +1,5 @@
 # SHOE-SHOP
-## 🛍️ ecommerce cart application with MERN [![CircleCI](https://circleci.com/gh/jeffersonRibeiro/react-shopping-cart.svg?style=svg)](https://circleci.com/gh/jeffersonRibeiro/react-shopping-cart)
+## 🛍️ ecommerce cart application with MERN 
 ## Basic Overview - [Live Demo](https://weatd.herokuapp.com/)
 ## Build/Run
 
