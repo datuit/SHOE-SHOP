@@ -10,8 +10,9 @@ const Shop = props => {
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
     axios({
-      method: 'GET',
-      url: `http://localhost:5000/api${match.path}?category=${category}`
+      method: 'POST',
+      url: 'api/item',
+      data: { category }
     }).then(res => setItems(res.data));
   }, [category, match.path]);
   //sortStatus: true is down to up , false is up to down

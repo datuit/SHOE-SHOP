@@ -21,6 +21,7 @@ const ShopPage = props => {
   useEffect(() => {
     if (items.length > 0) {
       setItemShow(items.slice(0, perPage));
+      page.current = 1;
     }
   }, [items]);
 
@@ -84,6 +85,8 @@ const ShopPage = props => {
                   dataLength={itemShow.length}
                   next={fetchMoreData}
                   hasMore={hasMore}
+                  initialScrollY
+                  style={{ overflow: 'hidden' }}
                   loader={
                     <div
                       style={{
