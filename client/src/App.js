@@ -1,15 +1,15 @@
-import React from 'react'
+import React, { Fragment } from 'react';
 
-import MainApp from './containers/App'
-import { BackTop } from 'antd'
+import MainApp from 'Containers/App';
+import { BackTop } from 'antd';
 
 const App = () => {
   return (
-    <>
+    <Fragment>
       <MainApp />
       <BackTop />
-    </>
-  )
-}
+    </Fragment>
+  );
+};
 
-export default App
+export default App;

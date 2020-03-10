@@ -1,5 +1,7 @@
 import React from 'react';
 import { Row, Col } from 'antd';
+import { FormattedMessage } from 'react-intl';
+import messages from './messages';
 
 const index = () => {
   return (
@@ -14,7 +16,9 @@ const index = () => {
                 alt="#s"
               />
             </p>
-            <p>Hệ thống giày thể thao số 1 Đà Nẵng</p>
+            <p>
+              <FormattedMessage {...messages.title} />
+            </p>
             <p>
               <span>Hotline</span> <a href="tel:0376640000">037.664.0000</a>
             </p>
@@ -35,7 +39,9 @@ const index = () => {
             </p>
           </Col>
           <Col xs={{ span: 24 }} md={{ span: 12 }}>
-            <p>Theo dõi ngay trên Facebook</p>
+            <p>
+              <FormattedMessage {...messages.follow} />
+            </p>
             <div
               className="fb-page"
               data-href="https://www.facebook.com/Shoe-Shop-108657557399318/"

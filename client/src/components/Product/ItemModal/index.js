@@ -1,29 +1,29 @@
-import React, { useState } from 'react'
-import { Row, Col, InputNumber, Select, Button } from 'antd'
-import { connect } from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import Slide from '../../Slide'
-import Notification from '../../Notification'
-import { actADD_TO_CART } from '../../../redux/Cart'
+import React, { useState } from 'react';
+import { Row, Col, InputNumber, Select, Button } from 'antd';
+import { connect } from 'react-redux';
+import { useHistory } from 'react-router-dom';
+import Slide from 'Components/Slide';
+import Notification from 'Components/Notification';
+import { actADD_TO_CART } from 'Redux/Cart';
 
-const { Option } = Select
+const { Option } = Select;
 
 const ShopSingle = props => {
-  const { item, cart, actADD_TO_CART } = props
-  const [sizeSelect, setSizeSelect] = useState(item.size[0] || 'Lựa chọn')
-  const [colorSelect, setColorSelect] = useState(item.color[0] || 'Lựa chọn')
-  const [quantityInput, setQuantityInput] = useState(1)
-  let history = useHistory()
+  const { item, cart, actADD_TO_CART } = props;
+  const [sizeSelect, setSizeSelect] = useState(item.size[0] || 'Lựa chọn');
+  const [colorSelect, setColorSelect] = useState(item.color[0] || 'Lựa chọn');
+  const [quantityInput, setQuantityInput] = useState(1);
+  let history = useHistory();
   const AddToCart = () => {
     if (cart.length > 0) {
-      const checkIndex = cart.map(e => e._id).indexOf(item._id)
+      const checkIndex = cart.map(e => e._id).indexOf(item._id);
       if (checkIndex !== -1) {
         if (cart[checkIndex].quantity + quantityInput > item.quantity) {
           return Notification(
             'warning',
             'Không đủ hàng',
             'Chọn lại số lượng, số lượng trong giỏ phải nhỏ hơn số lượng tồn kho'
-          )
+          );
         }
       }
     }
@@ -33,23 +33,23 @@ const ShopSingle = props => {
       price: item.promotion,
       image: item.images[0],
       name: item.name
-    })
-    Notification('success', 'Thành công', 'Đã thêm sản phẩm vào giỏ hàng')
-  }
+    });
+    Notification('success', 'Thành công', 'Đã thêm sản phẩm vào giỏ hàng');
+  };
 
   const buyNow = () => {
-    AddToCart()
-    history.push('/cart')
-  }
+    AddToCart();
+    history.push('/cart');
+  };
 
   function onChangeQuantity(value) {
     if (value > item.quantity) {
-      const message = 'Không đủ số lượng hàng'
-      const description = `Tối đa ${item.quantity} sản phẩm`
-      Notification('warning', message, description)
-      return setQuantityInput(item.quantity)
+      const message = 'Không đủ số lượng hàng';
+      const description = `Tối đa ${item.quantity} sản phẩm`;
+      Notification('warning', message, description);
+      return setQuantityInput(item.quantity);
     }
-    return setQuantityInput(value)
+    return setQuantityInput(value);
   }
   return (
     <div className="shop-single">
@@ -125,11 +125,11 @@ const ShopSingle = props => {
         </Col>
       </Row>
     </div>
-  )
-}
+  );
+};
 
 const mapStateToProps = state => ({
   cart: state.cart
-})
+});
 
-export default connect(mapStateToProps, { actADD_TO_CART })(ShopSingle)
+export default connect(mapStateToProps, { actADD_TO_CART })(ShopSingle);

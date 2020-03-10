@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { Slider, Switch, Icon, Button } from 'antd';
 import { max, min } from '../../../constants/base';
 
-const FilterProduct = ({ filterItems }) => {
+const FilterProduct = props => {
+  const { filterItems } = props;
   const [priceFilter, setPriceFilter] = useState([200000, 350000]);
   const [priceFilterStt, setPriceFilterStt] = useState(false);
   function onChangePrice(value) {

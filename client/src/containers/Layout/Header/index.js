@@ -3,19 +3,14 @@ import { Affix, Menu, Row, Col, Badge, Icon, Modal } from 'antd';
 import { Dropdown, Avatar } from 'antd';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Sign from '../../Sign';
-import { actLogOut } from '../../../redux/Session';
-import { isInFullScreen } from '../../../utils/screen';
+import { actLogOut } from 'Redux/Session/actions';
+import { isInFullScreen } from 'Util/screen';
+import Sign from 'Containers/Sign';
+import { FormattedMessage } from 'react-intl';
+import SelectLanguage from './TogleLanguage';
+import Search from './Search';
 
-//Funtion-Component Search
-const Search = () => {
-  return (
-    <form action="" className="site-top-search border">
-      <Icon type="search" />
-      <input type="text" placeholder="Search" />
-    </form>
-  );
-};
+import messages from './messages';
 
 const Header = ({ cart, user, actLogOut }) => {
   const [signTogle, setSignTogle] = useState(false);
@@ -37,42 +32,21 @@ const Header = ({ cart, user, actLogOut }) => {
 
   const togleScreenClick = () => {
     const screenStt = isInFullScreen();
-    var docElm = document.documentElement;
-    if (!screenStt) {
-      if (docElm.requestFullscreen) {
-        docElm.requestFullscreen();
-      } else if (docElm.mozRequestFullScreen) {
-        docElm.mozRequestFullScreen();
-      } else if (docElm.webkitRequestFullScreen) {
-        docElm.webkitRequestFullScreen();
-      } else if (docElm.msRequestFullscreen) {
-        docElm.msRequestFullscreen();
-      }
-    } else {
-      if (document.exitFullscreen) {
-        document.exitFullscreen();
-      } else if (document.webkitExitFullscreen) {
-        document.webkitExitFullscreen();
-      } else if (document.mozCancelFullScreen) {
-        document.mozCancelFullScreen();
-      } else if (document.msExitFullscreen) {
-        document.msExitFullscreen();
-      }
-    }
     setScreenTogle(!screenStt);
   };
 
   const menu = !user.userId ? (
     <Menu>
       <Menu.Item key="1" onClick={() => setSignTogle(true)}>
-        Đăng Nhập <Icon type="login" />
+        <FormattedMessage {...messages.menu.login} /> <Icon type="login" />
       </Menu.Item>
     </Menu>
   ) : (
     <Menu>
       <Menu.Item key="1">
         <Link to="/order">
-          Đơn hàng <Icon type="shopping-cart" />
+          <FormattedMessage {...messages.menu.order} />{' '}
+          <Icon type="shopping-cart" />
         </Link>
       </Menu.Item>
       <Menu.Item
@@ -82,7 +56,7 @@ const Header = ({ cart, user, actLogOut }) => {
           setSignTogle(false);
         }}
       >
-        Đăng Xuất <Icon type="logout" />
+        <FormattedMessage {...messages.menu.logout} /> <Icon type="logout" />
       </Menu.Item>
     </Menu>
   );
@@ -104,7 +78,9 @@ const Header = ({ cart, user, actLogOut }) => {
               md={{ span: 8, order: 2 }}
             >
               <div className="logo">
-                <Link to="/">THÀNH ĐẠT</Link>
+                <Link to="/">
+                  <FormattedMessage {...messages.logo} />
+                </Link>
               </div>
             </Col>
             <Col
@@ -125,10 +101,17 @@ const Header = ({ cart, user, actLogOut }) => {
                     )}
                   </li>
                   <li>
+                    <SelectLanguage />
+                  </li>
+                  <li>
                     <Dropdown overlay={menu} trigger={['click']}>
                       <span>
                         <Avatar icon="user" />
-                        {!user.userId ? 'Chào khách' : user.fullname}
+                        {!user.userId ? (
+                          <FormattedMessage {...messages.menu.guest} />
+                        ) : (
+                          user.fullname
+                        )}
                       </span>
                     </Dropdown>
                   </li>
@@ -160,13 +143,19 @@ const Header = ({ cart, user, actLogOut }) => {
             }}
           >
             <Menu.Item key="1">
-              <Link to="/shoes-man">Giày Nam</Link>
+              <Link to="/shoes-man">
+                <FormattedMessage {...messages.navbar.men} />
+              </Link>
             </Menu.Item>
             <Menu.Item key="2">
-              <Link to="/shoes-woman">Giày Nữ</Link>
+              <Link to="/shoes-woman">
+                <FormattedMessage {...messages.navbar.women} />
+              </Link>
             </Menu.Item>
             <Menu.Item key="3">
-              <Link to="/shoes-couple">Giày Đôi</Link>
+              <Link to="/shoes-couple">
+                <FormattedMessage {...messages.navbar.couple} />
+              </Link>
             </Menu.Item>
           </Menu>
         </div>

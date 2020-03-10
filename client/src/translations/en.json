@@ -1,0 +1,20 @@
+{
+  "containers.layout.header.logo": "thanh dat",
+  "containers.layout.header.navbar.men": "men",
+  "containers.layout.header.navbar.women": "women",
+  "containers.layout.header.navbar.couple": "couple",
+  "containers.layout.header.search": "Search",
+  "containers.layout.header.menu.guest": "Hi, Guest",
+  "containers.layout.header.menu.login": "Login",
+  "containers.layout.header.menu.logout": "Logout",
+  "containers.layout.header.menu.order": "Order",
+  "containers.layout.footer.title": "The number 1 sports shoe system in Danang",
+  "containers.layout.footer.follow": "Follow right on Facebook",
+  "containers.cart.empty": "Cart empty",
+  "containers.cart.totalcart": "Total Cart",
+  "containers.cart.total": "Total",
+  "containers.cart.address": "Delivery address",
+  "containers.cart.addaddress": "Add address",
+  "containers.cart.onaddaddress": "Add to",
+  "containers.cart.pay": "Pay"
+}

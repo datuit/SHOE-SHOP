@@ -1,8 +1,9 @@
-import React from 'react'
-import Item from './Item'
-import { List } from 'antd'
+import React from 'react';
+import Item from './Item';
+import { List } from 'antd';
+import PropTypes from 'prop-types';
 
-const index = ({ items }) => {
+const Product = ({ items }) => {
   return (
     <List
       grid={{
@@ -17,6 +18,10 @@ const index = ({ items }) => {
         </List.Item>
       )}
     />
-  )
-}
-export default index
+  );
+};
+
+Product.prototype = {
+  items: PropTypes.array
+};
+export default Product;

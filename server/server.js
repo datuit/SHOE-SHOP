@@ -92,6 +92,12 @@ const User = require("./model/user");
     const apiRouter = require("./routes/api.route");
     app.use("/api", apiRouter);
 
+    app.get("*.js", (req, res, next) => {
+      req.url = req.url + ".gz"; // eslint-disable-line
+      res.set("Content-Encoding", "gzip");
+      next();
+    });
+
     app.get("*", (req, res) => {
       res.sendFile(path.join(__dirname, "dist/index.html"));
     });

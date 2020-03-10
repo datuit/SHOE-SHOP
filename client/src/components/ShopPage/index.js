@@ -17,7 +17,7 @@ const ShopPage = props => {
       setItemShow(items.slice(0, perPage));
       page.current = 1;
     }
-  }, [items]);
+  }, [items.length]);
 
   //Load more itemShow
   const fetchMoreData = () => {

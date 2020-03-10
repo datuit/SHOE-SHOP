@@ -1,0 +1,20 @@
+{
+  "containers.layout.header.logo": "thành đạt",
+  "containers.layout.header.navbar.men": "Giày nam",
+  "containers.layout.header.navbar.women": "Giày nữ",
+  "containers.layout.header.navbar.couple": "Giày đôi",
+  "containers.layout.header.search": "Tìm kiếm",
+  "containers.layout.header.menu.guest": "Chào, Khách",
+  "containers.layout.header.menu.login": "Đăng nhập",
+  "containers.layout.header.menu.logout": "Đăng xuất",
+  "containers.layout.header.menu.order": "Đơn hàng",
+  "containers.layout.footer.title": "Hệ thống giày thể thao số 1 Đà Nẵng",
+  "containers.layout.footer.follow": "Theo dõi ngay trên Facebook",
+  "containers.cart.empty": "Giỏ hàng trống",
+  "containers.cart.totalcart": "Tổng số giỏ hàng",
+  "containers.cart.total": "Tổng Cộng",
+  "containers.cart.address": "Địa chỉ giao hàng",
+  "containers.cart.addaddress": "Thêm địa chỉ",
+  "containers.cart.onaddaddress": "Thêm vào",
+  "containers.cart.pay": "Thanh toán"
+}

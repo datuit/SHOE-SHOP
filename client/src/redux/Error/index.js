@@ -1,4 +1,4 @@
-import * as Types from '../../constants/actionTypes'
+import * as Types from 'Constants/actionTypes';
 
 export const actReceiveError = (type, data) => {
   return {
@@ -6,23 +6,23 @@ export const actReceiveError = (type, data) => {
     message: {
       [type]: data.message
     }
-  }
-}
+  };
+};
 
 export const actDelError = () => dispatch =>
   dispatch({
     type: Types.DEL_ERROR
-  })
+  });
 
-const initialState = { signin: '', signup: '' }
+const initialState = { signin: '', signup: '' };
 export default (state = initialState, { type, message }) => {
-  Object.freeze(state)
+  Object.freeze(state);
   switch (type) {
     case Types.RECEIVE_ERROR:
-      return message
+      return message;
     case Types.DEL_ERROR:
-      return initialState
+      return initialState;
     default:
-      return state
+      return state;
   }
-}
+};

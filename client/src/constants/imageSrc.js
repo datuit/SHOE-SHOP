@@ -1,5 +1,0 @@
-export const banner = require('../assets/img/banner.png')
-export const payment = require('../assets/img/payment.png')
-export const refresh = require('../assets/img/refresh.png')
-export const repair = require('../assets/img/repair.png')
-export const truck = require('../assets/img/truck.png')

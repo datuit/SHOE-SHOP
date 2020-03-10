@@ -1,9 +1,9 @@
 import React from 'react';
-import Shop from '../containers/Shop';
-import Home from '../containers/Home';
-import Cart from '../containers/Cart';
-import SuccesBuyCart from '../containers/SuccessBuy';
-import Order from '../containers/Order';
+import Shop from 'Containers/Shop';
+import Home from 'Containers/Home';
+import Cart from 'Containers/Cart';
+import SuccesBuyCart from 'Containers/SuccessBuy';
+import Order from 'Containers/Order';
 
 const routes = [
   {
@@ -14,17 +14,17 @@ const routes = [
   {
     path: '/shoes-man',
     exact: false,
-    main: props => <Shop category="Giày Nam" {...props} />
+    main: () => <Shop category="Giày Nam" />
   },
   {
     path: '/shoes-woman',
     exact: false,
-    main: props => <Shop category="Giày Nữ" {...props} />
+    main: () => <Shop category="Giày Nữ" />
   },
   {
     path: '/shoes-couple',
     exact: false,
-    main: props => <Shop category="Giày Đôi" {...props} />
+    main: () => <Shop category="Giày Đôi" />
   },
   {
     path: '/cart',

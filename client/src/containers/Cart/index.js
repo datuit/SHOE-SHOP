@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Table, Avatar, Empty, Button, Row, Col, Popconfirm } from 'antd';
 import { connect } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import AOS from 'aos';
-import { actDEL_CART, actBUY_CART } from '../../redux/Cart';
-import { actAddAddress } from '../../redux/Session';
-import Address from '../../components/Address';
-import Notification from '../../components/Notification';
+import { actDEL_CART, actBUY_CART } from 'Redux/Cart';
+import { actAddAddress } from 'Redux/Session';
+import Address from './Address';
+import Notification from 'Components/Notification';
+import { FormattedMessage } from 'react-intl';
+import messages from './messages';
 
 const columns = isDelItem => {
   return [
@@ -121,7 +123,7 @@ const Cart = props => {
     <div data-aos="flip-left">
       <div className="container mt-5 mb-5" style={{ minHeight: '250px' }}>
         {cart.length > 0 ? (
-          <>
+          <Fragment>
             <Table
               bordered
               columns={columns(isDelItem)}
@@ -130,10 +132,14 @@ const Cart = props => {
             />
             <Row className="mt-4">
               <Col xs={24} sm={{ span: 16 }}>
-                <Address
-                  addressUser={addressUser}
-                  actAddAddress={actAddAddress}
-                />
+                {isLogin ? (
+                  <Address
+                    addressUser={addressUser}
+                    actAddAddress={actAddAddress}
+                  />
+                ) : (
+                  ''
+                )}
               </Col>
               <Col xs={24} sm={{ span: 8 }}>
                 <Row>
@@ -144,7 +150,7 @@ const Cart = props => {
                       borderBottom: '1px #e8e8e8 solid'
                     }}
                   >
-                    Tổng số giỏ hàng
+                    <FormattedMessage {...messages.totalcart} />
                   </h4>
                   <Col span={24}>
                     <Col
@@ -154,7 +160,7 @@ const Cart = props => {
                         fontWeight: 'bold'
                       }}
                     >
-                      Tổng Cộng
+                      <FormattedMessage {...messages.total} />
                     </Col>
                     <Col
                       span={12}
@@ -174,21 +180,27 @@ const Cart = props => {
                         okText="Yes"
                         cancelText="No"
                       >
-                        <Button type="primary">Thanh toán</Button>
+                        <Button type="primary">
+                          <FormattedMessage {...messages.pay} />
+                        </Button>
                       </Popconfirm>
                     </Col>
                   </Col>
                 </Row>
               </Col>
             </Row>
-          </>
+          </Fragment>
         ) : (
           <Empty
             image="https://gw.alipayobjects.com/mdn/miniapp_social/afts/img/A*pevERLJC9v0AAAAAAAAAAABjAQAAAQ/original"
             imageStyle={{
               height: 100
             }}
-            description={<span>Giỏ hàng trống</span>}
+            description={
+              <span>
+                <FormattedMessage {...messages.empty} />
+              </span>
+            }
           ></Empty>
         )}
       </div>

@@ -1,5 +1,5 @@
-import * as Types from '../../constants/actionTypes';
-import { buyCart } from '../../utils/session';
+import * as Types from 'Constants/actionTypes';
+import { buyCart } from 'Util/session';
 
 export const actBUY_CART = cart => async dispatch => {
   const response = await buyCart(cart);

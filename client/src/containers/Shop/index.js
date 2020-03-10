@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import ShopPage from '../../components/ShopPage';
+import ShopPage from 'Components/ShopPage';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const Shop = props => {
   const [items, setItems] = useState([]);
   const [noItems, setNoItems] = useState(false);
-  const { category, match } = props;
+  const { category } = props;
   useEffect(() => {
     document.documentElement.scrollTop = 0;
     document.body.scrollTop = 0;
@@ -14,7 +16,7 @@ const Shop = props => {
       url: 'api/item',
       data: { category }
     }).then(res => setItems(res.data));
-  }, [category, match.path]);
+  }, [category]);
   //sortStatus: true is down to up , false is up to down
   const sortItems = status => {
     var itemSort = items.slice();
@@ -54,4 +56,12 @@ const Shop = props => {
   );
 };
 
-export default Shop;
+Shop.prototype = {
+  router: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  router: state.router
+});
+
+export default connect(mapStateToProps)(Shop);

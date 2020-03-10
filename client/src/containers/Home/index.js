@@ -1,17 +1,16 @@
-import React from 'react'
-import { Row, Col, Spin } from 'antd'
-import AOS from 'aos'
-import * as ImageSrc from '../../constants/imageSrc'
+import React from 'react';
+import { Row, Col, Spin } from 'antd';
+import AOS from 'aos';
 
 const Home = () => {
-  AOS.init()
+  AOS.init();
   return (
     <div className="home">
       <div
         data-aos="fade"
         className="background-banner"
         style={{
-          backgroundImage: `url(${ImageSrc.banner})`,
+          backgroundImage: 'url(assets/img/banner.jpg)',
           backgroundPosition: 'center'
         }}
       ></div>
@@ -22,7 +21,7 @@ const Home = () => {
             <Col xs={24} sm={6}>
               <div data-aos="fade-up">
                 {' '}
-                <img src={ImageSrc.truck} alt="truck" />
+                <img src="assets/img/truck.jpg" alt="truck" />
                 <p className="title">GIAO HÀNG TOÀN QUỐC</p>
                 <p className="description">Vận chuyển khắp Việt Nam</p>
               </div>
@@ -30,7 +29,7 @@ const Home = () => {
             <Col xs={24} sm={6}>
               <div data-aos="fade-up">
                 {' '}
-                <img src={ImageSrc.payment} alt="payment" />
+                <img src="assets/img/payment.jpg" alt="payment" />
                 <p className="title">GIAO HÀNG TOÀN QUỐC</p>
                 <p className="description">Vận chuyển khắp Việt Nam</p>
               </div>
@@ -38,14 +37,14 @@ const Home = () => {
             <Col xs={24} sm={6}>
               <div data-aos="fade-up">
                 {' '}
-                <img src={ImageSrc.repair} alt="repair" />
+                <img src="assets/img/repair.jpg" alt="repair" />
                 <p className="title">GIAO HÀNG TOÀN QUỐC</p>
                 <p className="description">Vận chuyển khắp Việt Nam</p>
               </div>
             </Col>
             <Col xs={24} sm={6}>
               <div data-aos="fade-up">
-                <img src={ImageSrc.refresh} alt="repair" />
+                <img src="assets/img/refresh.jpg" alt="repair" />
                 <p className="title">GIAO HÀNG TOÀN QUỐC</p>
                 <p className="description">Vận chuyển khắp Việt Nam</p>
               </div>
@@ -53,9 +52,7 @@ const Home = () => {
           </Row>
         </div>
         <div className="item-hot-home">
-          <h3 style={{ textAlign: 'center', fontSize: '3em' }}>
-            TẾT <span style={{ fontWeight: 'bold' }}>SALE HẾT</span>
-          </h3>
+          <h3 style={{ textAlign: 'center', fontSize: '3em' }}>TẾT</h3>
           <Row className="item-hot-home-list">
             <div
               className="example"
@@ -101,7 +98,7 @@ const Home = () => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Home
+export default Home;

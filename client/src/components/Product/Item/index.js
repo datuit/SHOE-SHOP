@@ -1,16 +1,18 @@
-import React, { useState, useEffect } from 'react'
-import ShopSingle from '../ItemModal'
-import { Modal, Icon } from 'antd'
+import React, { useState, useEffect } from 'react';
+import ShopSingle from '../ItemModal';
+import { Modal, Icon } from 'antd';
+import PropTypes from 'prop-types';
 
 const ItemProduct = ({ item }) => {
-  const [singleShopTogle, setSingleShopTogle] = useState(false)
-  const [mainImage, setMainImage] = useState(null)
+  console.log(item);
+  const [singleShopTogle, setSingleShopTogle] = useState(false);
+  const [mainImage, setMainImage] = useState();
   useEffect(() => {
-    setMainImage(item.images[0])
-  }, [item.images])
+    setMainImage(item.images[0]);
+  }, [item.images]);
   const actionTogleShop = () => {
-    setSingleShopTogle(true)
-  }
+    setSingleShopTogle(true);
+  };
   return (
     <div className="card">
       <div
@@ -57,7 +59,11 @@ const ItemProduct = ({ item }) => {
         <ShopSingle item={item} />
       </Modal>
     </div>
-  )
-}
+  );
+};
 
-export default ItemProduct
+ItemProduct.prototype = {
+  item: PropTypes.object.isRequired
+};
+
+export default ItemProduct;

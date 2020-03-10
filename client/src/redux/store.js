@@ -1,14 +1,22 @@
-import { createStore, applyMiddleware } from 'redux'
-import { composeWithDevTools } from 'redux-devtools-extension'
-import thunk from 'redux-thunk'
-import myReducers from './reducers'
+import { createStore, applyMiddleware, compose } from 'redux';
+import { routerMiddleware } from 'connected-react-router';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunk from 'redux-thunk';
+import myReducers from './reducers';
 
-export default preloadedState =>
-  createStore(myReducers, preloadedState, NODE_ENV_CONFIG())
+const configureStore = (preloadedState, history) => {
+  let composeEnhancers = compose;
+  if (process.env.NODE_ENV !== 'production' && typeof window === 'object')
+    if (window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__)
+      composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__({});
+  //routerMiddleware: Syncs the location/URL path to the state
+  const middlewares = [routerMiddleware(history), thunk];
+  const enhancers = [applyMiddleware(...middlewares)];
+  return createStore(
+    myReducers,
+    preloadedState,
+    composeEnhancers(...enhancers)
+  );
+};
 
-const NODE_ENV_CONFIG = () => {
-  if (process.env.NODE_ENV === 'development') {
-    return composeWithDevTools(applyMiddleware(thunk))
-  }
-  return applyMiddleware(thunk)
-}
+export default configureStore;

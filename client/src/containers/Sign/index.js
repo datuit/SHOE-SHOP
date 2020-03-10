@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Row, Col, Icon } from 'antd';
 import { connect } from 'react-redux';
-import { actSignIn, actSignUp } from '../../redux/Session';
-import { actDelError } from '../../redux/Error';
+import { actSignIn, actSignUp } from 'Redux/Session/actions';
+import { actDelError } from 'Redux/Error';
 import Signin from './Signin';
 import Signup from './Signup';
 

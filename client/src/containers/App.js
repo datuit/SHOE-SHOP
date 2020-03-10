@@ -1,13 +1,13 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import Header from './Layout/Header';
 import Footer from './Layout/Footer';
 import { Switch } from 'react-router-dom';
-import Routes from '../routes';
-import { RouteWithSubRoutes, ProtectedRouter } from '../utils';
+import Routes from 'Routes';
+import { RouteWithSubRoutes, ProtectedRouter } from '../util';
 
 const MainApp = () => {
   return (
-    <>
+    <Fragment>
       <Header />
       <main>
         <Switch>
@@ -21,7 +21,7 @@ const MainApp = () => {
         </Switch>
       </main>
       <Footer />
-    </>
+    </Fragment>
   );
 };
 
