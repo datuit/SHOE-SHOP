@@ -4,12 +4,10 @@ const { hashSync, compareSync } = require("bcrypt");
 const UserSchema = new mongoose.Schema(
   {
     username: {
-      type: String,
-      required: true
+      type: String
     },
     password: {
-      type: String,
-      required: true
+      type: String
     },
     facebookId: {
       type: String
