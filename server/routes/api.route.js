@@ -5,6 +5,7 @@ Router.get("/", (req, res) => {
   res.send("a");
 });
 
+const Product = require("../model/Product");
 Router.post("/item", (req, res) => {
   Product.find({ category: req.body.category }, function(err, products) {
     if (err) {
@@ -14,7 +15,6 @@ Router.post("/item", (req, res) => {
     }
   });
 });
-const Product = require("../model/Product");
 const Data = require("../data/Product.data");
 Router.get("/allitem", (req, res) => {
   Product.insertMany(Data);
