@@ -21,7 +21,16 @@ const User = require("./model/user");
     await mongoose.connect(MONGODB_URL, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useCreateIndex: true
+      useCreateIndex: true,
+    });
+
+    mongoose.connection.on(
+      "error",
+      console.error.bind(console, "connection error:")
+    );
+    mongoose.connection.once("open", function() {
+      console.log("connected");
+      // we're connected!
     });
     passport.serializeUser(function(user, done) {
       done(null, user);
@@ -34,7 +43,7 @@ const User = require("./model/user");
         {
           clientID: config.facebook_api_key,
           clientSecret: config.facebook_api_secret,
-          callbackURL: config.callback_url
+          callbackURL: config.callback_url,
         },
         function(accessToken, refreshToken, profile, done) {
           User.findOne({ facebookId: profile.id }, function(error, user) {
@@ -44,7 +53,7 @@ const User = require("./model/user");
             if (!user) {
               const userdata = new User({
                 fullname: profile.displayName,
-                facebookId: profile.id
+                facebookId: profile.id,
               });
               userdata.save();
               const sessionUser = sessionizeUser(userdata);
@@ -75,13 +84,13 @@ const User = require("./model/user");
         store: new MongoStore({
           mongooseConnection: mongoose.connection,
           ttl: parseInt(SESS_TIMELIFE) / 1000,
-          collection: "sesions"
+          collection: "sesions",
         }),
         cookie: {
           sameSite: true,
           secure: NODE_ENV === "production",
-          maxAge: parseInt(SESS_TIMELIFE)
-        }
+          maxAge: parseInt(SESS_TIMELIFE),
+        },
       })
     );
 
